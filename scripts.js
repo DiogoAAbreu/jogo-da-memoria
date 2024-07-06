@@ -3,6 +3,7 @@ let cartasExibidas = [].sort();
 let gifs = ['bobrossparrot', 'explodyparrot', 'fiestaparrot', 'metalparrot', 'revertitparrot', 'tripletsparrot', 'unicornparrot']
 let cartasViradas = [];
 let jogadas = 0;
+let contadorTempo = 0;
 
 
 
@@ -68,12 +69,41 @@ function finalizarJogo() {
         const text = `VOCÊ GANHOU!!!
      Você terminou o jogo em ${jogadas / 2} jogadas.`
         alert(text);
+
+        reiniciarJogo();
     }
 }
+
+function reiniciarJogo() {
+    const reiniciar = prompt('Deseja reiniciar o jogo?')
+    if (reiniciar !== 'sim' && reiniciar !== 'nâo') {
+        reiniciar = prompt("Insira apenas 'sim' e 'não'!")
+    }
+
+    if (reiniciar === 'sim') {
+        cartasExibidas = [];
+        cartasViradas = [];
+        jogadas = 0;
+        contadorTempo = 0;
+        quantidadesDeCartas();
+        colocarCartas();
+    }
+
+}
+
+function contador() {
+    let timer = document.querySelector('.timer');
+
+    setInterval(() => {
+        contadorTempo++;
+        timer.innerHTML = contadorTempo;
+    }, 1000)
+}
+
 function comparador() {
     return Math.random() - 0.5;
 }
 
-
+contador()
 quantidadesDeCartas();
 colocarCartas();
