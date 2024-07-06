@@ -1,7 +1,9 @@
 let qtdCartas = 0;
 let cartasExibidas = [].sort();
 let gifs = ['bobrossparrot', 'explodyparrot', 'fiestaparrot', 'metalparrot', 'revertitparrot', 'tripletsparrot', 'unicornparrot']
-let num = [1, 2, 3, 4, 5];
+let cartasViradas = [];
+let jogadas = 0;
+
 
 
 function quantidadesDeCartas() {
@@ -34,22 +36,44 @@ function colocarCartas() {
 }
 
 function virarCarta(elemento) {
-    const viradas = document.querySelectorAll('.virado');
-    if (viradas.length < 2) {
-        const frente = elemento.querySelector('.frente');
-        frente.parentNode.classList.toggle('virado');
-        console.log(viradas)
+    const elementoVirado = cartasViradas.includes(elemento);
+    if (!elementoVirado) {
+        if (cartasViradas.length < 2) {
+            elemento.classList.add('virado')
+            cartasViradas.push(elemento);
+        }
+
+        if (cartasViradas.length === 2) {
+            const carta1 = cartasViradas[0].querySelector('img.verso').src;
+            const carta2 = cartasViradas[1].querySelector('img.verso').src;
+            setTimeout(() => {
+                if (carta1 !== carta2) {
+                    cartasViradas[0].classList.remove('virado');
+                    cartasViradas[1].classList.remove('virado');
+                    cartasViradas = [];
+                } else {
+                    cartasViradas = [];
+                }
+                finalizarJogo();
+            }, 1000);
+        }
+        jogadas++;
     }
-
-}
-function removerCartas() {
-    const viradas = document.querySelectorAll('.virado');
-    console.log(viradas);
 }
 
+function finalizarJogo() {
+    const viradas = document.querySelectorAll('.virado')
+    console.log(viradas.length + 1)
+    if (viradas.length === qtdCartas) {
+        const text = `VOCÊ GANHOU!!!
+     Você terminou o jogo em ${jogadas / 2} jogadas.`
+        alert(text);
+    }
+}
 function comparador() {
     return Math.random() - 0.5;
 }
+
+
 quantidadesDeCartas();
 colocarCartas();
-removerCartas()
