@@ -66,8 +66,7 @@ function finalizarJogo() {
     const viradas = document.querySelectorAll('.virado')
     console.log(viradas.length + 1)
     if (viradas.length === qtdCartas) {
-        const text = `VOCÊ GANHOU!!!
-     Você terminou o jogo em ${jogadas / 2} jogadas.`
+        const text = `VOCÊ GANHOU!!!\nVocê terminou o jogo em ${jogadas / 2} jogadas.`
         alert(text);
 
         reiniciarJogo();
@@ -75,18 +74,13 @@ function finalizarJogo() {
 }
 
 function reiniciarJogo() {
-    const reiniciar = prompt('Deseja reiniciar o jogo?')
-    if (reiniciar !== 'sim' && reiniciar !== 'nâo') {
+    let reiniciar = prompt('Deseja reiniciar o jogo?')
+    if (reiniciar !== 'sim' && reiniciar !== 'não') {
         reiniciar = prompt("Insira apenas 'sim' e 'não'!")
     }
 
     if (reiniciar === 'sim') {
-        cartasExibidas = [];
-        cartasViradas = [];
-        jogadas = 0;
-        contadorTempo = 0;
-        quantidadesDeCartas();
-        colocarCartas();
+        window.location.reload()
     }
 
 }
